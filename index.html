@@ -3,57 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HappyHorse AI - Official Cinematic Video Generation | 1.0</title>
-    <meta name="description" content="Official HappyHorse AI. Experience hyper-realistic cinematic video generation with 1.0 physics engine.">
+    
+    <title>HappyHorse AI - Official Cinematic Video Generation | 1.0 Premiere</title>
+    <meta name="description" content="The official home of HappyHorse AI. Ranked #1 on Artificial Analysis Video Arena. Experience 1.0 cinematic video generation with native audio-video sync. Join the waitlist at HappyHorseCinema.com.">
+    <meta name="keywords" content="HappyHorse AI, HappyHorse 1.0, HappyHorse Official, Happy Horse AI, Cinematic AI Video, HappyHorse Github, Artificial Analysis AI">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        .serif { font-family: 'Playfair Display', serif; }
         
-        /* 视频背景覆盖层 */
+        /* 1. 全屏视频背景与遮罩 */
         .video-overlay {
-            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+            background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
         }
 
-        /* 高级流光特效 */
+        /* 2. 背景流光特效 (Glow Blobs) */
         .glow-blob {
             position: fixed; width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
             filter: blur(80px); border-radius: 50%; z-index: 1; pointer-events: none;
             animation: move 20s infinite alternate;
         }
-        .blob-2 { animation: move 25s infinite alternate-reverse; background: radial-gradient(circle, rgba(100,100,100,0.1) 0%, transparent 70%); }
-        
+        .blob-2 { animation: move 25s infinite alternate-reverse; background: radial-gradient(circle, rgba(100,100,100,0.08) 0%, transparent 70%); }
         @keyframes move {
             from { transform: translate(-20%, -20%); }
             to { transform: translate(120%, 80%); }
         }
 
-        /* 呼吸边框流光 */
-        .shimmer-border {
-            position: relative; overflow: hidden;
+        /* 3. 电影胶片质感 (Grain) */
+        .grain::after {
+            content: ""; position: fixed; inset: -100%; width: 300%; height: 300%;
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.04; pointer-events: none; z-index: 100;
+            animation: noise 0.2s infinite;
         }
-        .shimmer-border::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(transparent, transparent, transparent, rgba(255,255,255,0.3));
-            animation: rotate 4s linear infinite;
-        }
-        @keyframes rotate { 100% { transform: rotate(360deg); } }
-        .inner-box { position: relative; z-index: 1; background: #050505; margin: 1px; border-radius: inherit; }
+        @keyframes noise { 0% { transform: translate(0,0) } 10% { transform: translate(-1%,-1%) } }
 
-        /* 打字机光标 */
+        /* 4. 打字机光标动效 */
         .cursor::after { content: '|'; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* 隐藏滚动条 */
+        /* 5. 呼吸感标题发光 */
+        .text-glow { text-shadow: 0 0 30px rgba(255,255,255,0.3); }
+
+        /* 隐藏滚动条但保留功能 */
         ::-webkit-scrollbar { width: 0px; }
     </style>
 </head>
-<body>
+<body class="grain">
 
     <div class="glow-blob"></div>
     <div class="glow-blob blob-2"></div>
-    
+
     <div class="fixed inset-0 z-0">
         <div class="absolute inset-0 video-overlay z-10"></div>
         <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60">
@@ -61,95 +65,137 @@
         </video>
     </div>
 
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl bg-black/20 backdrop-blur-2xl border border-white/10 p-2 rounded-full flex justify-between items-center">
-        <div class="px-6 font-bold tracking-tighter text-lg italic">HAPPYHORSE <span class="text-neutral-500 not-italic">AI</span></div>
-        <div class="hidden md:flex space-x-8 text-[10px] uppercase tracking-[0.4em] text-neutral-400">
-            <a href="#features" class="hover:text-white transition">Gallery</a>
-            <a href="#tech" class="hover:text-white transition">Architecture</a>
-            <a href="#" class="hover:text-white transition">API</a>
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl bg-black/10 backdrop-blur-2xl border border-white/10 p-2 rounded-full flex justify-between items-center transition-all duration-500 hover:border-white/30">
+        <div class="px-6 font-bold tracking-[0.2em] serif italic text-lg">HAPPYHORSE <span class="not-italic text-neutral-500 font-light">AI</span></div>
+        <div class="hidden md:flex space-x-10 text-[10px] uppercase tracking-[0.4em] text-neutral-400">
+            <a href="#showcase" class="hover:text-white transition">Gallery</a>
+            <a href="#features" class="hover:text-white transition">Features</a>
+            <a href="https://hhcinema.one" class="text-white/40">hhcinema.one</a>
         </div>
-        <a href="#join" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-200 transition">Early Access</a>
+        <a href="#join" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-200 transition">Request Access</a>
     </nav>
 
     <main class="relative z-20 min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
-        <div class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-1 rounded-full mb-8 backdrop-blur-md">
-            <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]"></span>
-            <span class="text-[9px] uppercase tracking-[0.4em] text-neutral-300">Official Release: April 10, 2026</span>
+        <div class="flex flex-col items-center space-y-4 mb-8">
+            <span class="inline-block px-4 py-1 border border-white/20 rounded-full text-[9px] tracking-[0.4em] uppercase text-neutral-300 backdrop-blur-md">
+                Ranked #1 on Artificial Analysis Video Arena
+            </span>
+            <p class="text-[9px] tracking-[0.6em] uppercase text-neutral-500 font-bold">Official Cinematic Studio</p>
         </div>
 
-        <h1 class="text-7xl md:text-[140px] font-bold tracking-tighter leading-none mb-10">
+        <h1 class="serif text-7xl md:text-[160px] font-bold tracking-tighter leading-none text-glow mb-12 italic">
             HappyHorse <span class="text-neutral-500 italic">AI</span>
         </h1>
 
-        <div class="w-full max-w-2xl bg-white/5 border border-white/10 p-5 rounded-2xl mb-12 backdrop-blur-xl shadow-2xl relative">
-            <div class="flex items-center space-x-2 mb-4">
-                <div class="w-2.5 h-2.5 rounded-full bg-neutral-700"></div>
-                <div class="w-2.5 h-2.5 rounded-full bg-neutral-800"></div>
-                <span class="text-[9px] text-neutral-500 uppercase ml-2 tracking-widest">Inference Engine v1.0</span>
+        <div class="w-full max-w-2xl bg-white/5 border border-white/10 p-6 rounded-2xl mb-14 backdrop-blur-xl shadow-2xl">
+            <div class="flex items-center space-x-2 mb-4 opacity-40">
+                <div class="w-2 h-2 rounded-full bg-neutral-100"></div>
+                <div class="w-2 h-2 rounded-full bg-neutral-100"></div>
+                <span class="text-[8px] uppercase ml-2 tracking-widest">Inference Engine v1.0</span>
             </div>
-            <div class="text-left text-sm md:text-lg text-neutral-200 font-mono py-2 min-h-[3em]">
+            <div class="text-left text-sm md:text-lg text-neutral-200 font-mono py-2 min-h-[3.5em]">
                 <span id="typed-text" class="cursor text-white/90"></span>
             </div>
         </div>
 
-        <div class="flex space-x-12 opacity-80 mb-20">
-            <div class="flex flex-col"><span id="days" class="text-5xl font-light tracking-tighter">00</span><span class="text-[8px] uppercase tracking-[0.4em] text-neutral-500 mt-2">Days</span></div>
-            <div class="flex flex-col"><span id="hours" class="text-5xl font-light tracking-tighter">00</span><span class="text-[8px] uppercase tracking-[0.4em] text-neutral-500 mt-2">Hours</span></div>
-            <div class="flex flex-col"><span id="minutes" class="text-5xl font-light tracking-tighter">00</span><span class="text-[8px] uppercase tracking-[0.4em] text-neutral-500 mt-2">Mins</span></div>
+        <div class="flex space-x-12 md:space-x-20 mb-20">
+            <div class="flex flex-col"><span id="days" class="text-6xl md:text-[140px] font-light tracking-tighter">00</span><span class="text-[9px] tracking-[0.4em] uppercase text-neutral-600 mt-2">Days</span></div>
+            <div class="flex flex-col"><span id="hours" class="text-6xl md:text-[140px] font-light tracking-tighter">00</span><span class="text-[9px] tracking-[0.4em] uppercase text-neutral-600 mt-2">Hours</span></div>
+            <div class="flex flex-col"><span id="minutes" class="text-6xl md:text-[140px] font-light tracking-tighter">00</span><span class="text-[9px] tracking-[0.4em] uppercase text-neutral-600 mt-2">Mins</span></div>
+        </div>
+        
+        <div id="join" class="w-full max-w-md">
+            <div class="flex flex-col md:flex-row gap-3">
+                <input type="email" placeholder="ENTER YOUR EMAIL" class="w-full bg-white/5 border border-white/10 px-8 py-5 rounded-sm outline-none focus:border-white/40 transition text-center text-xs tracking-widest">
+                <button class="bg-white text-black px-10 py-5 rounded-sm font-bold uppercase tracking-widest text-xs hover:bg-neutral-200 transition duration-500">Join</button>
+            </div>
         </div>
     </main>
 
-    <section id="features" class="relative z-20 max-w-7xl mx-auto px-6 py-40">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="md:col-span-3 bg-white/5 border border-white/5 p-12 rounded-[2.5rem] backdrop-blur-sm group hover:border-white/20 transition duration-700">
-                <h3 class="text-4xl font-bold mb-6 italic">Cinematic Physics.</h3>
-                <p class="text-neutral-400 text-lg max-w-xl leading-relaxed">HappyHorse 1.0 achieves unparalleled realism by simulating light, liquid, and atmosphere in a single unified latent space.</p>
-                <div class="mt-12 aspect-[21/9] bg-black rounded-2xl overflow-hidden border border-white/5">
-                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200" class="w-full h-full object-cover opacity-40 group-hover:scale-105 transition duration-[2s]">
-                </div>
+    <section id="showcase" class="relative z-20 py-40 px-10 bg-[#020202]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 border-l-4 border-white pl-8">
+                <h2 class="serif text-5xl md:text-7xl italic leading-none">The 1.0 <br><span class="text-neutral-500">Masterpiece</span></h2>
+                <p class="text-neutral-500 text-[10px] tracking-[0.5em] uppercase pb-2">6 Cinematic Benchmarks</p>
             </div>
-            <div class="bg-white text-black p-10 rounded-[2.5rem] flex flex-col justify-between items-start">
-                <div class="text-4xl font-bold tracking-tighter">15B</div>
-                <p class="text-xs uppercase font-bold tracking-widest mt-4">Parameter Scale</p>
-                <div class="mt-20">
-                    <p class="text-sm font-bold mb-4">Ready to build the future of film?</p>
-                    <a href="#" class="inline-block bg-black text-white px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest">Join Studio</a>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="group relative aspect-video bg-neutral-900 overflow-hidden rounded-xl border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+                        <span class="text-[8px] text-orange-200 tracking-[0.3em] uppercase mb-2">01. Physics</span>
+                        <p class="text-[10px] font-mono text-neutral-300 italic">"Rainy neon street, accurate fluid reflections."</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-video bg-neutral-900 overflow-hidden rounded-xl border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+                        <span class="text-[8px] text-orange-200 tracking-[0.3em] uppercase mb-2">02. Texture</span>
+                        <p class="text-[10px] font-mono text-neutral-300 italic">"4K Portrait showing micro-skin expressions."</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-video bg-neutral-900 overflow-hidden rounded-xl border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?q=80&w=800" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+                        <span class="text-[8px] text-orange-200 tracking-[0.3em] uppercase mb-2">03. Scale</span>
+                        <p class="text-[10px] font-mono text-neutral-300 italic">"Massive dust storm with volumetric lighting."</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-video bg-neutral-900 overflow-hidden rounded-xl border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=800" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+                        <span class="text-[8px] text-orange-200 tracking-[0.3em] uppercase mb-2">04. Light</span>
+                        <p class="text-[10px] font-mono text-neutral-300 italic">"Sunset over Amalfi coast, 35mm film refraction."</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-video bg-neutral-900 overflow-hidden rounded-xl border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+                        <span class="text-[8px] text-orange-200 tracking-[0.3em] uppercase mb-2">05. Motion</span>
+                        <p class="text-[10px] font-mono text-neutral-300 italic">"Consistent character movement across scenes."</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-video bg-neutral-900 overflow-hidden rounded-xl border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+                        <span class="text-[8px] text-orange-200 tracking-[0.3em] uppercase mb-2">06. Macro</span>
+                        <p class="text-[10px] font-mono text-neutral-300 italic">"Subsurface scattering on a melting snowflake."</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="relative z-20 py-20 border-t border-white/5 text-center">
-        <p class="text-[9px] text-neutral-600 uppercase tracking-[0.8em]">
-            HappyHorse Cinema | HH-AI.com | Created by Future Life Lab
-        </p>
+    <footer class="relative z-20 py-20 border-t border-white/5 text-center bg-black">
+        <p class="text-[9px] text-neutral-600 uppercase tracking-[0.8em] mb-4">HAPPYHORSECINEMA.COM | HH-AI.ONE</p>
+        <p class="text-[8px] text-neutral-800 uppercase tracking-widest italic">"Beyond the Ordinary." | © 2026 Studio One</p>
     </footer>
 
     <script>
-        // 1. 打字机特效：电影感的 Prompt 描述
-        const promptText = "Hyper-realistic cinematic shot, massive dark storm clouds rotating over a vast landscape, lightning illuminating the sky, 8k resolution, cinematic lighting, 120fps...";
+        // 1. 打字机特效逻辑
+        const promptText = "Hyper-realistic cinematic shot, massive dark storm clouds rotating over a vast landscape, lightning illuminating the sky, 8k resolution, cinematic lighting, slow motion...";
         let i = 0;
         function typing() {
             if (i < promptText.length) {
                 document.getElementById("typed-text").innerHTML += promptText.charAt(i);
                 i++;
-                setTimeout(typing, 40);
+                setTimeout(typing, 45);
             }
         }
-        setTimeout(typing, 1500);
+        window.onload = () => setTimeout(typing, 1000);
 
-        // 2. 倒计时逻辑
-        const launch = new Date('April 10, 2026 10:00:00').getTime();
-        const updateCountdown = () => {
+        // 2. 倒计时逻辑 (目标：2026-04-10 10:00:00)
+        const targetDate = new Date('April 10, 2026 10:00:00').getTime();
+        function updateTimer() {
             const now = new Date().getTime();
-            const diff = launch - now;
-            if (diff < 0) return;
+            const diff = targetDate - now;
+            if (diff <= 0) return;
             document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
             document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
             document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        };
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
     </script>
 </body>
 </html>
