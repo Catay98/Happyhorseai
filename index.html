@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HappyHorse AI - Official Cinematic Video Generation | 1.0</title>
+    <meta name="description" content="Official HappyHorse AI. Experience hyper-realistic cinematic video generation with 1.0 physics engine.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        
+        /* 视频背景覆盖层 */
+        .video-overlay {
+            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+        }
+
+        /* 高级流光特效 */
+        .glow-blob {
+            position: fixed; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            filter: blur(80px); border-radius: 50%; z-index: 1; pointer-events: none;
+            animation: move 20s infinite alternate;
+        }
+        .blob-2 { animation: move 25s infinite alternate-reverse; background: radial-gradient(circle, rgba(100,100,100,0.1) 0%, transparent 70%); }
+        
+        @keyframes move {
+            from { transform: translate(-20%, -20%); }
+            to { transform: translate(120%, 80%); }
+        }
+
+        /* 呼吸边框流光 */
+        .shimmer-border {
+            position: relative; overflow: hidden;
+        }
+        .shimmer-border::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, rgba(255,255,255,0.3));
+            animation: rotate 4s linear infinite;
+        }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+        .inner-box { position: relative; z-index: 1; background: #050505; margin: 1px; border-radius: inherit; }
+
+        /* 打字机光标 */
+        .cursor::after { content: '|'; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* 隐藏滚动条 */
+        ::-webkit-scrollbar { width: 0px; }
+    </style>
+</head>
+<body>
+
+    <div class="glow-blob"></div>
+    <div class="glow-blob blob-2"></div>
+    
+    <div class="fixed inset-0 z-0">
+        <div class="absolute inset-0 video-overlay z-10"></div>
+        <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60">
+            <source src="视频背景.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl bg-black/20 backdrop-blur-2xl border border-white/10 p-2 rounded-full flex justify-between items-center">
+        <div class="px-6 font-bold tracking-tighter text-lg italic">HAPPYHORSE <span class="text-neutral-500 not-italic">AI</span></div>
+        <div class="hidden md:flex space-x-8 text-[10px] uppercase tracking-[0.4em] text-neutral-400">
+            <a href="#features" class="hover:text-white transition">Gallery</a>
+            <a href="#tech" class="hover:text-white transition">Architecture</a>
+            <a href="#" class="hover:text-white transition">API</a>
+        </div>
+        <a href="#join" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-200 transition">Early Access</a>
+    </nav>
+
+    <main class="relative z-20 min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
+        <div class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-1 rounded-full mb-8 backdrop-blur-md">
+            <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]"></span>
+            <span class="text-[9px] uppercase tracking-[0.4em] text-neutral-300">Official Release: April 10, 2026</span>
+        </div>
+
+        <h1 class="text-7xl md:text-[140px] font-bold tracking-tighter leading-none mb-10">
+            HappyHorse <span class="text-neutral-500 italic">AI</span>
+        </h1>
+
+        <div class="w-full max-w-2xl bg-white/5 border border-white/10 p-5 rounded-2xl mb-12 backdrop-blur-xl shadow-2xl relative">
+            <div class="flex items-center space-x-2 mb-4">
+                <div class="w-2.5 h-2.5 rounded-full bg-neutral-700"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-neutral-800"></div>
+                <span class="text-[9px] text-neutral-500 uppercase ml-2 tracking-widest">Inference Engine v1.0</span>
+            </div>
+            <div class="text-left text-sm md:text-lg text-neutral-200 font-mono py-2 min-h-[3em]">
+                <span id="typed-text" class="cursor text-white/90"></span>
+            </div>
+        </div>
+
+        <div class="flex space-x-12 opacity-80 mb-20">
+            <div class="flex flex-col"><span id="days" class="text-5xl font-light tracking-tighter">00</span><span class="text-[8px] uppercase tracking-[0.4em] text-neutral-500 mt-2">Days</span></div>
+            <div class="flex flex-col"><span id="hours" class="text-5xl font-light tracking-tighter">00</span><span class="text-[8px] uppercase tracking-[0.4em] text-neutral-500 mt-2">Hours</span></div>
+            <div class="flex flex-col"><span id="minutes" class="text-5xl font-light tracking-tighter">00</span><span class="text-[8px] uppercase tracking-[0.4em] text-neutral-500 mt-2">Mins</span></div>
+        </div>
+    </main>
+
+    <section id="features" class="relative z-20 max-w-7xl mx-auto px-6 py-40">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="md:col-span-3 bg-white/5 border border-white/5 p-12 rounded-[2.5rem] backdrop-blur-sm group hover:border-white/20 transition duration-700">
+                <h3 class="text-4xl font-bold mb-6 italic">Cinematic Physics.</h3>
+                <p class="text-neutral-400 text-lg max-w-xl leading-relaxed">HappyHorse 1.0 achieves unparalleled realism by simulating light, liquid, and atmosphere in a single unified latent space.</p>
+                <div class="mt-12 aspect-[21/9] bg-black rounded-2xl overflow-hidden border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200" class="w-full h-full object-cover opacity-40 group-hover:scale-105 transition duration-[2s]">
+                </div>
+            </div>
+            <div class="bg-white text-black p-10 rounded-[2.5rem] flex flex-col justify-between items-start">
+                <div class="text-4xl font-bold tracking-tighter">15B</div>
+                <p class="text-xs uppercase font-bold tracking-widest mt-4">Parameter Scale</p>
+                <div class="mt-20">
+                    <p class="text-sm font-bold mb-4">Ready to build the future of film?</p>
+                    <a href="#" class="inline-block bg-black text-white px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest">Join Studio</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative z-20 py-20 border-t border-white/5 text-center">
+        <p class="text-[9px] text-neutral-600 uppercase tracking-[0.8em]">
+            HappyHorse Cinema | HH-AI.com | Created by Future Life Lab
+        </p>
+    </footer>
+
+    <script>
+        // 1. 打字机特效：电影感的 Prompt 描述
+        const promptText = "Hyper-realistic cinematic shot, massive dark storm clouds rotating over a vast landscape, lightning illuminating the sky, 8k resolution, cinematic lighting, 120fps...";
+        let i = 0;
+        function typing() {
+            if (i < promptText.length) {
+                document.getElementById("typed-text").innerHTML += promptText.charAt(i);
+                i++;
+                setTimeout(typing, 40);
+            }
+        }
+        setTimeout(typing, 1500);
+
+        // 2. 倒计时逻辑
+        const launch = new Date('April 10, 2026 10:00:00').getTime();
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const diff = launch - now;
+            if (diff < 0) return;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        };
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
